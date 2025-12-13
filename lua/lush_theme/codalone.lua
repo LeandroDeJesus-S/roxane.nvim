@@ -271,7 +271,7 @@ local theme = lush(function(injected_functions)
 		LspKindFile({ Normal }), -- LspKindFile    xxx links to Normal
 		SnacksDashboardNormal({ Normal }), -- SnacksDashboardNormal xxx links to Normal
 		SnacksInputNormal({ Normal }), -- SnacksInputNormal xxx links to Normal
-		SnacksPickerIconFile({ Normal }), -- SnacksPickerIconFile xxx links to Normal
+		SnacksPickerIconFile({ fg = roxaneless }), -- SnacksPickerIconFile xxx links to Normal
 		TroubleIconFile({ Normal }), -- TroubleIconFile xxx links to Normal
 		NoiceConfirm({ Normal }), -- NoiceConfirm   xxx links to Normal
 		NoiceCmdlinePopup({ Normal }), -- NoiceCmdlinePopup xxx links to Normal
@@ -338,7 +338,7 @@ local theme = lush(function(injected_functions)
 		TelescopePreviewLink({ Special }), -- TelescopePreviewLink xxx links to Special
 		TelescopeMatching({ Special }), -- TelescopeMatching xxx links to Special
 		SnacksDashboardFile({ Special }), -- SnacksDashboardFile xxx links to Special
-		SnacksPickerIcon({ fg = roxaneless }), -- SnacksPickerIcon xxx links to Special
+		SnacksPickerIcon({ fg = roxane }), -- SnacksPickerIcon xxx links to Special
 		SnacksPickerKeymapLhs({ Special }), -- SnacksPickerKeymapLhs xxx links to Special
 		SnacksPickerIconEvent({ Special }), -- SnacksPickerIconEvent xxx links to Special
 		SnacksPickerMatch({ Special }), -- SnacksPickerMatch xxx links to Special
@@ -402,6 +402,7 @@ local theme = lush(function(injected_functions)
 		MiniDepsHint({ DiagnosticHint }), -- MiniDepsHint   xxx links to DiagnosticHint
 		SnacksPickerGitStatusStaged({ DiagnosticHint }), -- SnacksPickerGitStatusStaged xxx links to DiagnosticHint
 		SnacksPickerFileType({ DiagnosticHint }), -- SnacksPickerFileType xxx links to DiagnosticHint
+		SnacksPickerFile({ fg = greyer.lighten(25) }), -- SnacksPickerFileType xxx links to DiagnosticHint
 		SnacksStatusColumnMark({ DiagnosticHint }), -- SnacksStatusColumnMark xxx links to DiagnosticHint
 		DiagnosticOk({ fg = greener }), -- DiagnosticOk   xxx ctermfg=10 guifg=NvimLightGreen
 		DiagnosticFloatingOk({ DiagnosticOk }), -- DiagnosticFloatingOk xxx links to DiagnosticOk
@@ -789,7 +790,7 @@ local theme = lush(function(injected_functions)
 		MiniStarterItemPrefix({ fg = "#ffc777" }), -- MiniStarterItemPrefix xxx guifg=#ffc777
 		sym("@comment.info")({ fg = "#0db9d7" }), -- @comment.info  xxx guifg=#0db9d7
 		SnacksIndent4({ fg = "#4fd6be", gui = "nocombine" }), -- SnacksIndent4  xxx cterm=nocombine gui=nocombine guifg=#4fd6be
-		SnacksPickerInputTitle({ fg = "#ff966c", bg = "#1e2030" }), -- SnacksPickerInputTitle xxx guifg=#ff966c guibg=#1e2030
+		SnacksPickerInputTitle({ fg = roxanelest, bg = "#1e2030" }), -- SnacksPickerInputTitle xxx guifg=#ff966c guibg=#1e2030
 		SnacksNotifierBorderError({ fg = "#632d42", bg = "#222436" }), -- SnacksNotifierBorderError xxx guifg=#632d42 guibg=#222436
 		NoiceCmdlinePopupTitleInput({ fg = "#ffc777" }), -- NoiceCmdlinePopupTitleInput xxx guifg=#ffc777
 		GrugFarResultsLineNo({ fg = "#545c7e" }), -- GrugFarResultsLineNo xxx guifg=#545c7e
