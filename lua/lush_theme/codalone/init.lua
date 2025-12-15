@@ -21,7 +21,7 @@ local theme = lush(function(injected_functions)
 		DiffDelete({ fg = colors.bloodless }),
 		DiffText({ fg = colors.tealest }),
 
-		WinSeparator({ fg = colors.blackest.lighten(5) }),
+		WinSeparator({ fg = colors.bg.lighten(1) }),
 		YankHighlight({ fg = colors.bg, bg = colors.bluelest.lighten(50), bold = true }),
 		Folded({ bg = colors.roxanest, fg = colors.grey }),
 
@@ -56,6 +56,7 @@ local theme = lush(function(injected_functions)
 		DiagnosticInfo({ fg = colors.tea }),
 		DiagnosticHint({ fg = colors.grey }),
 		DiagnosticOk({ fg = colors.green }),
+		DiagnosticSignInfo({ fg = colors.roxanelest }),
 
 		StatusLine({ Normal, bg = Normal.bg.lighten(1) }),
 
@@ -114,9 +115,6 @@ local theme = lush(function(injected_functions)
 		Removed({ fg = colors.bloodless.lighten(50) }), -- Removed		removed line in a diff
 
 		Comment({ fg = lush.hsl("#7f7f7f") }),
-
-		-- lsp
-		-- LspReferenceText({ Visual, fg = colors.black }),
 
 		-- tree-sitter
 		sym("@comment.documentation")({ String }),
@@ -234,11 +232,61 @@ local theme = lush(function(injected_functions)
 		-- @tag.attribute          XML-style tag attributes
 		-- @tag.delimiter          XML-style tag delimiters
 
+		-- LSP semantic token modifiers
+		sym("@lsp.mod.abstract")({ italic = true }), -- Types and member functions that are abstract
+		sym("@lsp.mod.async")({ fg = colors.tealest, italic = true }), -- Functions that are marked async
+		sym("@lsp.mod.declaration")({ bold = true }), -- Declarations of symbols
+		sym("@lsp.mod.defaultLibrary")({ fg = colors.grey }), -- Symbols that are part of the standard library
+		sym("@lsp.mod.definition")({ underline = true }), -- Definitions of symbols, for example, in header files
+		sym("@lsp.mod.deprecated")({ fg = colors.bloodless, strikethrough = true }), -- Symbols that should no longer be used
+		sym("@lsp.mod.documentation")({ fg = colors.blacklest }), -- Occurrences of symbols in documentation
+		sym("@lsp.mod.modification")({ fg = colors.sunshine }), -- Variable references where the variable is assigned to
+		sym("@lsp.mod.readonly")({ fg = colors.white, bold = true }), -- Readonly variables and member fields (constants)
+		sym("@lsp.mod.static")({ fg = colors.greyer, underline = true }), -- Class members (static members)
+
+		-- lsp
+		-- LspReferenceText({ fg = colors.black }),
+		-- LspReferenceRead({ LspReferenceText }),
+		-- LspReferenceWrite({ LspReferenceText }),
+
+		-- LSP Kind highlight groups (for completion items) - inherit from treesitter where possible
+		LspKindVariable({ sym("@variable") }),
+		LspKindFunction({ sym("@function.builtin") }),
+		LspKindMethod({ LspKindFunction }),
+		LspKindConstructor({ sym("@constructor") }),
+		LspKindClass({ sym("@type") }),
+		LspKindInterface({ LspKindClass }),
+		LspKindStruct({ LspKindClass }),
+		LspKindModule({ sym("@module") }),
+		LspKindNamespace({ LspKindModule }),
+		LspKindPackage({ LspKindModule }),
+		LspKindProperty({ sym("@variable.member") }),
+		LspKindField({ LspKindProperty }),
+		LspKindConstant({ sym("@constant") }),
+		LspKindString({ sym("@string") }),
+		LspKindNumber({ sym("@number") }),
+		LspKindBoolean({ sym("@boolean") }),
+		LspKindArray({ fg = colors.sunshine }),
+		LspKindObject({ fg = colors.green }),
+		LspKindKey({ fg = colors.greyer }),
+		LspKindNull({ fg = colors.blood }),
+		LspKindEnum({ fg = colors.orange }),
+		LspKindEnumMember({ fg = colors.orangeless }),
+		LspKindEvent({ fg = colors.sunshineless }),
+		LspKindOperator({ fg = colors.roxane.rotate(-10) }),
+		LspKindTypeParameter({ fg = colors.tealest.lighten(20) }),
+		LspKindFile({ fg = colors.roxaneless }),
+		LspKindFolder({ LspKindFile }),
+		LspKindSnippet({ fg = colors.sunshine }),
+		LspKindText({ fg = colors.whiteless }),
+		LspKindUnit({ fg = colors.tealest }),
+		LspKindValue({ fg = colors.white }),
+
 		-- snacks
 		-- SnacksPicker({ fg = colors.blue }),
 		-- SnacksPickerTree({ fg = colors.blackest.lighten(10) }),
 		SnacksPickerDirectory({ fg = colors.roxanelest.lighten(75) }),
-		SnacksPickerListCursorLine({ bg = Directory.fg.saturate(-70).lightness(50), fg = colors.whiteness }),
+		SnacksPickerListCursorLine({ bg = Directory.fg.saturate(-70).lightness(50) }),
 		SnacksPickerTotals({ fg = colors.bluelest.lighten(50) }),
 		SnacksPickerFile({ fg = colors.bluelest.lighten(60) }),
 
@@ -256,6 +304,120 @@ local theme = lush(function(injected_functions)
 		TelescopePreviewTitle({ fg = colors.bluelest.lighten(50) }),
 		TelescopeSelection({ bg = SnacksPickerListCursorLine.bg, fg = colors.whiteness }),
 		TelescopeSelectionCaret({ fg = colors.roxane }),
+
+		-- noice
+		NoiceCmdline({ NormalFloat }),
+		NoiceCmdlineIcon({ fg = colors.bluelest }),
+		NoiceCmdlinePopup({ NormalFloat }),
+		NoiceCmdlinePopupBorder({ FloatBorder }),
+		NoiceCmdlinePopupTitle({ fg = colors.bluelest.lighten(50) }),
+		NoiceConfirm({ NormalFloat }),
+		NoiceConfirmBorder({ FloatBorder }),
+		NoiceCursor({ fg = colors.fg, bg = colors.roxane }),
+		NoiceFormatProgressDone({ fg = colors.green }),
+		NoiceFormatProgressTodo({ fg = colors.grey }),
+		NoiceLspProgressSpinner({ fg = colors.tealest }),
+		NoiceLspProgressTitle({ fg = colors.bluelest }),
+		NoiceLspProgressClient({ fg = colors.roxanelest }),
+		NoiceMini({ NormalFloat }),
+		NoicePopup({ NormalFloat }),
+		NoicePopupBorder({ FloatBorder }),
+		NoicePopupmenu({ NormalFloat }),
+		NoicePopupmenuBorder({ FloatBorder }),
+		NoicePopupmenuMatch({ fg = colors.tealest }),
+		NoicePopupmenuSelected({ bg = colors.roxanelest.lighten(-20) }),
+		NoiceScrollbar({ fg = colors.blackest.lighten(10) }),
+		NoiceScrollbarThumb({ fg = colors.grey }),
+		NoiceSplit({ NormalFloat }),
+		NoiceSplitBorder({ FloatBorder }),
+		NoiceVirtualText({ fg = colors.greyer, italic = true }),
+
+		-- which-key
+		WhichKey({ NormalFloat, fg = colors.roxaneless.saturate(-40).lighten(20) }),
+		WhichKeyBorder({ TelescopeBorder }),
+		WhichKeyDesc({ fg = colors.roxanelest.lightness(85) }), -- description
+		WhichKeyFloat({ bg = colors.bg, fg = colors.fg }),
+		WhichKeyGroup({ fg = colors.roxanelest.lighten(50), bold = true }), -- group name
+		WhichKeyIcon({ fg = colors.bluelest }), -- icons
+		WhichKeyIconAzure({ fg = colors.tealest }),
+		WhichKeyIconBlue({ fg = colors.bluelest.lighten(30) }),
+		WhichKeyIconCyan({ fg = colors.tealest }),
+		WhichKeyIconGreen({ fg = colors.greener }),
+		WhichKeyIconGrey({ fg = colors.grey }),
+		WhichKeyIconOrange({ fg = colors.orangelest }),
+		WhichKeyIconPurple({ fg = colors.roxaneless.lighten(35) }),
+		WhichKeyIconRed({ fg = colors.bloodlest }),
+		WhichKeyIconYellow({ fg = colors.sunshineless.saturate(-50) }),
+		WhichKeyNormal({ fg = colors.whitelest }), -- Normal in the which-key window
+		WhichKeySeparator({ fg = colors.fg }), -- the separator between the key and its description
+		WhichKeyTitle({ fg = colors.roxaneless.saturate(-50), bold = true }), -- Title of the which-key window
+		WhichKeyValue({ fg = colors.bluelest.lighten(50) }), -- values by plugins (like marks, registers, etc)
+
+		-- blink-cmp
+		BlinkCmpMenu({ NormalFloat }), -- The completion menu window
+		BlinkCmpMenuBorder({ FloatBorder }), -- The completion menu window border
+		-- BlinkCmpMenuSelection({ bg = colors.roxanelest.lighten(-20), fg = colors.white }), -- The completion menu window selected item
+		BlinkCmpScrollBarThumb({ fg = colors.grey }), -- The scrollbar thumb
+		BlinkCmpScrollBarGutter({ fg = colors.blackest.lighten(5) }), -- The scrollbar gutter
+		BlinkCmpLabel({ fg = colors.white }), -- Label of the completion item
+		BlinkCmpLabelDeprecated({ fg = colors.bloodless, strikethrough = true }), -- Deprecated label of the completion item
+		BlinkCmpLabelMatch({ fg = colors.roxanelest.lighten(50), bold = true }), -- Label of the completion item when it matches the query
+		BlinkCmpLabelDetail({ fg = colors.whiteless }), -- Label description of the completion item
+		BlinkCmpLabelDescription({ fg = colors.greyer }), -- Label description of the completion item
+		BlinkCmpKind({ fg = colors.bluelest }), -- Kind icon/text of the completion item
+		BlinkCmpKindKey({ fg = colors.greyer }),
+		BlinkCmpKindEnum({ fg = colors.orangeless }),
+		BlinkCmpKindFile({ fg = colors.roxaneless }),
+		BlinkCmpKindText({ fg = colors.whiteless }),
+		BlinkCmpKindUnit({ fg = colors.tealest }),
+		BlinkCmpKindArray({ fg = colors.sunshine }),
+		BlinkCmpKindClass({ sym("@type") }),
+		BlinkCmpKindColor({ fg = colors.roxane }),
+		BlinkCmpKindEvent({ fg = colors.sunshineless }),
+		BlinkCmpKindField({ sym("@variable.member") }),
+		BlinkCmpKindValue({ fg = colors.white }),
+		BlinkCmpKindFolder({ fg = colors.roxaneless }),
+		BlinkCmpKindMethod({ sym("@function.builtin") }),
+		BlinkCmpKindModule({ sym("@module") }),
+		BlinkCmpKindNumber({ sym("@number") }),
+		BlinkCmpKindObject({ fg = colors.green }),
+		BlinkCmpKindString({ sym("@string") }),
+		BlinkCmpKindStruct({ sym("@type") }),
+		BlinkCmpKindBoolean({ sym("@boolean") }),
+		BlinkCmpKindKeyword({ fg = colors.roxanelest }),
+		BlinkCmpKindPackage({ sym("@module") }),
+		BlinkCmpKindSnippet({ fg = colors.sunshine }),
+		BlinkCmpKindConstant({ sym("@constant") }),
+		BlinkCmpKindFunction({ sym("@function.builtin") }),
+		BlinkCmpKindOperator({ Operator }),
+		BlinkCmpKindProperty({ sym("@variable.member") }),
+		BlinkCmpKindVariable({ sym("@variable") }),
+		BlinkCmpKindInterface({ sym("@type") }),
+		BlinkCmpKindNamespace({ sym("@module") }),
+		BlinkCmpKindReference({ fg = colors.bluelest }),
+		BlinkCmpKindEnumMember({ fg = colors.orangeless }),
+		BlinkCmpKindConstructor({ sym("@constructor") }),
+		BlinkCmpKindTypeParameter({ fg = colors.tealest.lighten(20) }),
+		BlinkCmpSource({ fg = colors.roxaneless }), -- Source of the completion item
+		BlinkCmpGhostText({ fg = colors.grey, italic = true }), -- Preview item with ghost text
+		BlinkCmpDoc({ NormalFloat }), -- The documentation window
+		BlinkCmpDocBorder({ FloatBorder }), -- The documentation window border
+		BlinkCmpDocSeparator({ fg = colors.greyer }), -- The documentation separator between doc and detail
+		BlinkCmpDocCursorLine({ bg = colors.roxanest.lighten(5) }), -- The documentation window cursor line
+		BlinkCmpSignatureHelp({ NormalFloat }), -- The signature help window
+		BlinkCmpSignatureHelpBorder({ FloatBorder }), -- The signature help window border
+		BlinkCmpSignatureHelpActiveParameter({ fg = colors.roxane, bold = true }), -- Active parameter of the signature help
+
+		-- mini icons
+		MiniIconsAzure({ WhichKeyIconAzure }), -- azure
+		MiniIconsBlue({ WhichKeyIconBlue }), -- blue
+		MiniIconsCyan({ WhichKeyIconCyan }), -- cyan
+		MiniIconsGreen({ WhichKeyIconGreen }), -- green
+		MiniIconsGrey({ WhichKeyIconGrey }), -- grey
+		MiniIconsOrange({ WhichKeyIconOrange }), -- orange
+		MiniIconsPurple({ WhichKeyIconPurple }), -- purple
+		MiniIconsRed({ WhichKeyIconRed }), -- red
+		MiniIconsYellow({ WhichKeyIconYellow }), -- yellow
 	}
 end)
 return theme
