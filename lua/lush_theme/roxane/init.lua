@@ -287,9 +287,8 @@ local theme = lush(function(injected_functions)
 
 		-- snacks
 		-- SnacksPicker({ fg = colors.blue }),
-		-- SnacksPickerTree({ fg = colors.blackest.lighten(10) }),
 		SnacksPickerDirectory({ fg = colors.roxanelest.lighten(75) }),
-		SnacksPickerListCursorLine({ bg = Directory.fg.saturate(-70).lightness(50) }),
+		SnacksPickerListCursorLine({ bg = CursorLine.bg.lighten(7) }),
 		SnacksPickerTotals({ fg = colors.bluelest.lighten(50) }),
 		SnacksPickerFile({ fg = colors.bluelest.lighten(60) }),
 		SnacksPickerDir({ fg = colors.blacklest.lighten(50) }),
