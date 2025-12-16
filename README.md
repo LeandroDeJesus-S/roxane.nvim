@@ -29,7 +29,7 @@ A dark Neovim colorscheme with lush purple accents.
 
 ## Installation
 
-### Using [LazyVim]()
+### [LazyVim]()
 
 ```lua
 return {
@@ -44,24 +44,16 @@ return {
 }
 ```
 
-### Using [packer.nvim](https://github.com/wbthomason/packer.nvim)
+### [packer.nvim](https://github.com/wbthomason/packer.nvim)
 
 ```lua
 use 'LeandroDeJesus-S/roxane.nvim'
 ```
 
-### Using [vim-plug](https://github.com/junegunn/vim-plug)
+### [vim-plug](https://github.com/junegunn/vim-plug)
 
 ```vim
 Plug 'LeandroDeJesus-S/roxane.nvim'
-```
-
-## Usage
-
-Add the following to your Neovim configuration:
-
-```lua
-vim.cmd('colorscheme roxane')
 ```
 
 ## Building
