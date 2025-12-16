@@ -2,11 +2,11 @@
 
 local lushwright = require("shipwright.transform.lush")
 run(
-	require("lush_theme.codalone"),
+	require("lush_theme.roxane"),
 	-- generate lua code
 	lushwright.to_lua,
 	-- write the lua code into our destination.
 	-- you must specify open and close markers yourself to account
 	-- for differing comment styles, patchwrite isn't limited to lua files.
-	{ patchwrite, "colors/codalone.lua", "-- PATCH_OPEN", "-- PATCH_CLOSE" }
+	{ patchwrite, "colors/roxane.lua", "-- PATCH_OPEN", "-- PATCH_CLOSE" }
 )

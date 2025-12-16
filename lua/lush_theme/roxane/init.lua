@@ -1,12 +1,12 @@
 local lush = require("lush")
-local colors = require("lush_theme.codalone.colors")
+local colors = require("lush_theme.roxane.colors")
 
 local theme = lush(function(injected_functions)
 	local sym = injected_functions.sym
 	return {
 		Normal({ fg = colors.fg, bg = colors.bg }),
 		NormalNC({ Normal, bg = lush.hsl("#242424") }),
-		NormalFloat({ Normal, bg = lush.hsl("#242424") }),
+		NormalFloat({ Normal, bg = Normal.bg.lighten(1) }),
 
 		Cursor({ fg = colors.bg, bg = colors.fg }),
 		CursorLine({ bg = lush.hsl("#2f2935") }),
@@ -16,14 +16,14 @@ local theme = lush(function(injected_functions)
 
 		Directory({ fg = colors.roxaneless }),
 
-		DiffAdd({ fg = colors.greenest }),
-		DiffChange({ fg = colors.greyest }),
-		DiffDelete({ fg = colors.bloodless }),
+		DiffAdd({ fg = colors.greener, bg = colors.greenlest.lighten(50).saturate(-50) }),
+		DiffChange({ fg = colors.bluelest.lighten(50) }),
+		DiffDelete({ fg = colors.white, bg = colors.blooder.lighten(50).saturate(-50) }),
 		DiffText({ fg = colors.tealest }),
 
-		WinSeparator({ fg = colors.bg.lighten(1) }),
+		WinSeparator({ fg = NormalFloat.bg.lighten(1) }), -- win separator
 		YankHighlight({ fg = colors.bg, bg = colors.bluelest.lighten(50), bold = true }),
-		Folded({ bg = colors.roxanest, fg = colors.grey }),
+		Folded({ bg = colors.bg.lighten(5) }),
 
 		Visual({ fg = colors.fg, bg = lush.hsl("#503C5C") }),
 
@@ -201,27 +201,30 @@ local theme = lush(function(injected_functions)
 		-- @markup.strikethrough   struck-through text
 		-- @markup.underline       underlined text (only for literal underline markup!)
 		--
-		-- @markup.heading         headings, titles (including markers)
-		-- @markup.heading.1       top-level heading
-		-- @markup.heading.2       section heading
-		-- @markup.heading.3       subsection heading
-		-- @markup.heading.4       and so on
-		-- @markup.heading.5       and so forth
-		-- @markup.heading.6       six levels ought to be enough for anybody
-		--
+		sym("@markup.heading")({ fg = colors.roxanelest.lighten(50), bold = true }), -- @markup.heading         headings, titles (including markers)
+		sym("@markup.heading.1")({ fg = colors.roxanelest.lighten(30), bold = true }), -- @markup.heading.1       top-level heading
+		sym("@markup.heading.2")({ fg = colors.roxanelest.lighten(30).rotate(20), bold = true }), -- @markup.heading.2       section heading
+		sym("@markup.heading.3")({ fg = colors.roxanelest.lighten(30).rotate(50), bold = true }), -- @markup.heading.3       subsection heading
+		sym("@markup.heading.4")({ fg = colors.roxanelest.lighten(30).rotate(70), bold = true }), -- @markup.heading.4       and so on
+		sym("@markup.heading.5")({ fg = colors.roxanelest.lighten(30).rotate(80), bold = true }), -- @markup.heading.5       and so forth
+		sym("@markup.heading.6")({ fg = colors.roxanelest.lighten(30).rotate(100), bold = true }), -- @markup.heading.6       six levels ought to be enough for anybody
 		sym("@markup.quote")({ fg = colors.bluelest.lighten(50) }), -- @markup.quote           block quotes
-		-- @markup.math            math environments (e.g. `$ ... $` in LaTeX)
+		sym("@markup.math")({ fg = colors.roxanest.lighten(50) }), -- @markup.math            math environments (e.g. `$ ... $` in LaTeX)
 		--
-		-- @markup.link            text references, footnotes, citations, etc.
-		-- @markup.link.label      link, reference descriptions
-		-- @markup.link.url        URL-style links
+		sym("@markup.link")({ fg = colors.roxanelest }), -- @markup.link            text references, footnotes, citations, etc.
+		sym("@markup.link.label")({ fg = colors.bluelest.lighten(50).rotate(20), underline = true }), -- @markup.link.label      link, reference descriptions
+		sym("@markup.link.url")({ fg = colors.greylest }), -- @markup.link.url        URL-style links
 		--
-		sym("@markup.raw")({ fg = colors.bluelest.lighten(50) }), -- @markup.raw             literal or verbatim text (e.g. inline code)
-		-- @markup.raw.block       literal or verbatim text as a stand-alone block
-		--
-		-- @markup.list            list markers
-		-- @markup.list.checked    checked todo-style list markers
-		-- @markup.list.unchecked  unchecked todo-style list markers
+		sym("@markup.raw")({
+			fg = colors.bluelest.lighten(50),
+			bg = colors.bluelest.lighten(-50).saturate(-80),
+			bold = true,
+		}), -- @markup.raw             literal or verbatim text (e.g. inline code)
+		sym("@markup.raw.block")({ bg = colors.bg.lighten(5) }), -- @markup.raw.block       literal or verbatim text as a stand-alone block
+
+		sym("@markup.list")({ fg = colors.bluelest.lighten(50) }), -- @markup.list            list markers
+		sym("@markup.list.checked")({ fg = colors.roxanelest }), -- @markup.list.checked    checked todo-style list markers
+		sym("@markup.list.unchecked")({ fg = colors.roxanelest.lighten(20) }), -- @markup.list.unchecked  unchecked todo-style list markers
 		--
 		-- @diff.plus              added text (for diff files)
 		-- @diff.minus             deleted text (for diff files)
@@ -236,13 +239,13 @@ local theme = lush(function(injected_functions)
 		sym("@lsp.mod.abstract")({ italic = true }), -- Types and member functions that are abstract
 		sym("@lsp.mod.async")({ fg = colors.tealest, italic = true }), -- Functions that are marked async
 		sym("@lsp.mod.declaration")({ bold = true }), -- Declarations of symbols
-		sym("@lsp.mod.defaultLibrary")({ fg = colors.grey }), -- Symbols that are part of the standard library
-		sym("@lsp.mod.definition")({ underline = true }), -- Definitions of symbols, for example, in header files
+		sym("@lsp.mod.defaultLibrary")({ fg = colors.roxaneless.rotate(35).lighten(30) }), -- Symbols that are part of the standard library
+		sym("@lsp.mod.definition")({ underline = false }), -- Definitions of symbols, for example, in header files
 		sym("@lsp.mod.deprecated")({ fg = colors.bloodless, strikethrough = true }), -- Symbols that should no longer be used
 		sym("@lsp.mod.documentation")({ fg = colors.blacklest }), -- Occurrences of symbols in documentation
 		sym("@lsp.mod.modification")({ fg = colors.sunshine }), -- Variable references where the variable is assigned to
 		sym("@lsp.mod.readonly")({ fg = colors.white, bold = true }), -- Readonly variables and member fields (constants)
-		sym("@lsp.mod.static")({ fg = colors.greyer, underline = true }), -- Class members (static members)
+		sym("@lsp.mod.static")({ fg = colors.greyer }), -- Class members (static members)
 
 		-- lsp
 		-- LspReferenceText({ fg = colors.black }),
@@ -289,6 +292,8 @@ local theme = lush(function(injected_functions)
 		SnacksPickerListCursorLine({ bg = Directory.fg.saturate(-70).lightness(50) }),
 		SnacksPickerTotals({ fg = colors.bluelest.lighten(50) }),
 		SnacksPickerFile({ fg = colors.bluelest.lighten(60) }),
+		SnacksPickerDir({ fg = colors.blacklest.lighten(50) }),
+		SnacksPickerGitStatusUntracked({ Comment }),
 
 		-- telescope
 		TelescopeNormal({ NormalFloat }),
@@ -418,6 +423,52 @@ local theme = lush(function(injected_functions)
 		MiniIconsPurple({ WhichKeyIconPurple }), -- purple
 		MiniIconsRed({ WhichKeyIconRed }), -- red
 		MiniIconsYellow({ WhichKeyIconYellow }), -- yellow
+
+		-- render markdown
+		-- RenderMarkdownH1                @markup.heading.1.markdown           H1 icons
+		-- RenderMarkdownH2                @markup.heading.2.markdown           H2 icons
+		-- RenderMarkdownH3                @markup.heading.3.markdown           H3 icons
+		-- RenderMarkdownH4                @markup.heading.4.markdown           H4 icons
+		-- RenderMarkdownH5                @markup.heading.5.markdown           H5 icons
+		-- RenderMarkdownH6                @markup.heading.6.markdown           H6 icons
+		RenderMarkdownH1Bg({ sym("@markup.heading.1") }), -- RenderMarkdownH1Bg              DiffText                             H1 background line
+		RenderMarkdownH2Bg({ sym("@markup.heading.2") }), -- RenderMarkdownH2Bg              DiffAdd                              H2 background line
+		RenderMarkdownH3Bg({ sym("@markup.heading.3") }), -- RenderMarkdownH3Bg              DiffChange                           H3 background line
+		RenderMarkdownH4Bg({ sym("@markup.heading.4") }), -- RenderMarkdownH4Bg              DiffDelete                           H4 background line
+		RenderMarkdownH5Bg({ sym("@markup.heading.5") }), -- RenderMarkdownH5Bg              Visual                               H5 background line
+		RenderMarkdownH6Bg({ sym("@markup.heading.6") }), -- RenderMarkdownH6Bg              CursorColumn                         H6 background line
+		RenderMarkdownCode({ sym("@markup.raw.block") }), -- RenderMarkdownCode              ColorColumn                          Code block
+		-- RenderMarkdownCodeInfo          @label                               Code info, after
+		-- RenderMarkdownCodeBorder        RenderMarkdownCode                   Code border
+		-- RenderMarkdownCodeFallback      Normal                               Fallback for code
+		RenderMarkdownCodeInline({ sym("@markup.raw") }), -- RenderMarkdownCodeInline        RenderMarkdownCode                   Inline code
+		-- RenderMarkdownQuote             @markup.quote                        Default for block
+		-- RenderMarkdownQuote1            RenderMarkdownQuote                  Level 1 block quote
+		-- RenderMarkdownQuote2            RenderMarkdownQuote                  Level 2 block quote
+		-- RenderMarkdownQuote3            RenderMarkdownQuote                  Level 3 block quote
+		-- RenderMarkdownQuote4            RenderMarkdownQuote                  Level 4 block quote
+		-- RenderMarkdownQuote5            RenderMarkdownQuote                  Level 5 block quote
+		-- RenderMarkdownQuote6            RenderMarkdownQuote                  Level 6 block quote
+		-- RenderMarkdownInlineHighlight   RenderMarkdownCodeInline             Inline highlights
+		RenderMarkdownBullet({ fg = colors.roxane.lighten(20) }), -- RenderMarkdownBullet            Normal                               List item bullet
+		-- RenderMarkdownDash              LineNr                               Thematic break line
+		-- RenderMarkdownSign              SignColumn                           Sign column
+		-- RenderMarkdownMath              @markup.math                         Latex lines
+		-- RenderMarkdownIndent            Whitespace                           Indent icon
+		-- RenderMarkdownHtmlComment       @comment                             HTML comment inline
+		-- RenderMarkdownLink              @markup.link.label.markdown_inline   Image & hyperlink
+		-- RenderMarkdownWikiLink          RenderMarkdownLink                   WikiLink icon & text
+		-- RenderMarkdownUnchecked         @markup.list.unchecked               Unchecked checkbox
+		-- RenderMarkdownChecked           @markup.list.checked                 Checked checkbox
+		-- RenderMarkdownTodo              @markup.raw                          Todo custom checkbox
+		RenderMarkdownTableHead({ fg = colors.roxaneless }), -- RenderMarkdownTableHead         @markup.heading                      Pipe table heading
+		RenderMarkdownTableRow({ fg = colors.roxaneless }), -- RenderMarkdownTableRow          Normal                               Pipe table body rows
+		-- RenderMarkdownTableFill         Conceal                              Pipe table inline
+		-- RenderMarkdownSuccess           DiagnosticOk                         Success related
+		-- RenderMarkdownInfo              DiagnosticInfo                       Info related
+		-- RenderMarkdownHint              DiagnosticHint                       Hint related
+		-- RenderMarkdownWarn              DiagnosticWarn                       Warning related
+		-- RenderMarkdownError             DiagnosticError                      Error related
 	}
 end)
 return theme

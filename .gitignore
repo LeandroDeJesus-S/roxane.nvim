@@ -1,3 +1,5 @@
 .ruuff_cache/
 .dmypy.json
-
+*.py
+*.go
+*.md
