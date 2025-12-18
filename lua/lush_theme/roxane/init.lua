@@ -16,10 +16,13 @@ local theme = lush(function(injected_functions)
 
 		Directory({ fg = colors.roxaneless }),
 
-		DiffAdd({ fg = colors.greener, bg = colors.greenlest.lighten(50).saturate(-50) }),
-		DiffChange({ fg = colors.bluelest.lighten(50) }),
-		DiffDelete({ fg = colors.white, bg = colors.blooder.lighten(50).saturate(-50) }),
+		DiffAdd({ bg = colors.teaer.saturate(-80) }),
+		DiffChange({ bg = colors.bg.lighten(5) }),
+		DiffDelete({ bg = colors.blooder.saturate(-70) }),
 		DiffText({ fg = colors.tealest }),
+
+		SnacksDiffAddLineNr({ bg = DiffAdd.bg.darken(30) }),
+		SnacksDiffDeleteLineNr({ bg = DiffDelete.bg.darken(30) }),
 
 		WinSeparator({ fg = NormalFloat.bg.lighten(1) }), -- win separator
 		YankHighlight({ fg = colors.bg, bg = colors.bluelest.lighten(50), bold = true }),
